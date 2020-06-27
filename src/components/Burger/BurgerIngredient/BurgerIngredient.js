@@ -13,8 +13,8 @@ class BurgerIngredient extends React.Component {
       case "bread-top":
         ingredient = (
           <div className={styles.BreadTop}>
-            <div className={styles.Seed1}></div>
-            <div className={styles.Seed2}></div>
+            <div className={styles.Seeds1}></div>
+            <div className={styles.Seeds2}></div>
           </div>
         );
         break;
