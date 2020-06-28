@@ -17,7 +17,7 @@ class BurgerBuilder extends React.Component {
       cheese: 0,
       meat: 0,
     },
-    totalPrice: 4,
+    totalPrice: 0,
   };
 
   addIngredientHandler = (type) => {
@@ -52,6 +52,7 @@ class BurgerBuilder extends React.Component {
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
+          price={this.state.totalPrice}
         />
       </React.Fragment>
     );
