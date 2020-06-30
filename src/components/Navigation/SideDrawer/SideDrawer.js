@@ -9,7 +9,6 @@ const sideDrawer = (props) => {
   if (props.open) {
     attachedClasses = [styles.SideDrawer, styles.Open];
   }
-  console.log(attachedClasses);
   return (
     <React.Fragment>
       <Backdrop show={props.open} clicked={props.closed} />
@@ -17,7 +16,6 @@ const sideDrawer = (props) => {
         <div className={styles.Logo}>
           <Logo />
         </div>
-
         <nav>
           <NavigationItems />
         </nav>
