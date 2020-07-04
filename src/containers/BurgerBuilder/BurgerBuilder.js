@@ -3,7 +3,6 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
-import axios from "axios";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 const INGREDIENT_PRICES = {
@@ -71,25 +70,38 @@ class BurgerBuilder extends React.Component {
 
   purchaseContinueHandler = () => {
     //alert("You continue!");
-    this.setState({ loading: true });
-    const order = {
-      ingredients: this.state.ingredient,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Ivo Krastev",
-        address: {
-          street: "6th Avunue",
-          zipCode: "54684",
-          country: "Spain",
-        },
-        email: "test@test.com",
-      },
-      deliveryMethod: "fastest",
-    };
-    axios
-      .post("https://my-burger-e2340.firebaseio.com/orders.json", order)
-      .then((response) => this.setState({ loading: false, purchasing: false }))
-      .catch((error) => this.setState({ loading: false, purchasing: false }));
+    // this.setState({ loading: true });
+    // const order = {
+    //   ingredients: this.state.ingredient,
+    //   price: this.state.totalPrice,
+    //   customer: {
+    //     name: "Ivo Krastev",
+    //     address: {
+    //       street: "6th Avunue",
+    //       zipCode: "54684",
+    //       country: "Spain",
+    //     },
+    //     email: "test@test.com",
+    //   },
+    //   deliveryMethod: "fastest",
+    // };
+    // axios
+    //   .post("https://my-burger-e2340.firebaseio.com/orders.json", order)
+    //   .then((response) => this.setState({ loading: false, purchasing: false }))
+    //   .catch((error) => this.setState({ loading: false, purchasing: false }));
+    const queryParams = [];
+    for (let i in this.state.ingredient) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredient[i])
+      );
+    }
+    const queryString = queryParams.join("&");
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString,
+    });
   };
 
   render() {
