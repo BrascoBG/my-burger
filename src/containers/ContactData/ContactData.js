@@ -78,6 +78,9 @@ class ContactData extends React.Component {
             { value: "cheapest", displayValue: "Cheapest" },
           ],
         },
+        validation: {
+          required: true,
+        },
         value: "",
       },
     },
@@ -134,7 +137,6 @@ class ContactData extends React.Component {
       updatedFormElement.validation
     );
     updatedOrderForm[inputIdentifier] = updatedFormElement;
-    console.log(updatedFormElement);
     this.setState({ orderForm: updatedOrderForm });
   };
 

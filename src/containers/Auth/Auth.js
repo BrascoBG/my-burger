@@ -1,6 +1,8 @@
 import React from "react";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
+import axios from "axios";
+import styles from "./Auth.module.css";
 
 class Auth extends React.Component {
   state = {
@@ -33,6 +35,40 @@ class Auth extends React.Component {
       },
     },
   };
+
+  submitTokenHandler = (e) => {
+    e.preventDefault();
+    const authData = {
+      email: this.state.controls.email.value,
+      password: this.state.controls.password.value,
+      returnSecureToken: true,
+    };
+    axios
+      .post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDgQAZQlObvD_3jb6_oz8oeaBv-GBOHpzE",
+        authData
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedOrderForm = {
+      ...this.state.controls,
+    };
+    const updatedFormElement = {
+      ...updatedOrderForm[inputIdentifier],
+    };
+    updatedFormElement.value = event.target.value;
+
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
+    this.setState({ controls: updatedOrderForm });
+  };
+
   render() {
     const formElementsArray = [];
     for (let key in this.state.controls) {
@@ -51,8 +87,8 @@ class Auth extends React.Component {
       />
     ));
     return (
-      <div>
-        <form>
+      <div className={styles.Auth}>
+        <form onSubmit={this.submitTokenHandler}>
           {form}
           <Button btnType="Success">Submit</Button>
         </form>
